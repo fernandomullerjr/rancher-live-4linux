@@ -238,6 +238,8 @@ sudo docker logs rancher-manager -f
 sudo docker logs rancher-manager 2>&1 | grep "Bootstrap Password:"
 
 
+### Vagrant Quick Start:
+https://rancher.com/docs/rancher/v2.5/en/quick-start-guide/deployment/quickstart-vagrant/
 
 
 
@@ -279,3 +281,123 @@ depois normalizou:
 ~~~~
 
 
+
+
+
+~~~~bash
+root@rancher:/home/fernandomj90# sudo docker logs rancher-manager 2>&1 | grep "Bootstrap Password:"
+2022/06/28 23:24:27 [INFO] Bootstrap Password: 7gtqk9xbktwnxhbqq276ndg69hwkwt5bgr67xtsc2rsdcb85bl6f47
+root@rancher:/home/fernandomj90# 
+~~~~
+
+
+
+- Acessar o Rancher via ip publico
+34.136.135.215
+
+Senha criada:
+
+
+
+https://artifacthub.io/
+
+
+
+
+
+#  07 - Criar Cluster Kubernetes Google GKE.
+
+- Em "Cluster Management"
+<https://34.136.135.215/dashboard/c/local/manager/provisioning.cattle.io.cluster>
+
+- Clicar em "create"
+Escolher o "Google GKE"
+
+- Em "Cluster Name":
+liverancher
+
+- Em "Member" e "Labels" não vamos alterar
+
+- Em "Google Account Access"
+clicar em "Read from a file"
+clicar em "Read from a file"
+clicar em "Read from a file"
+- Selecionar a chave JSON que foi criada mais cedo.
+- Clicar em "Create".
+- Clicar em "Configure cluster".
+- Navegar até a parte "Node Pools".
+- Em "Image Type", mudar para "Ubuntu with Docker".
+- Em "Machine type", escolher a familia "n2-highmem-2", com 2 CPU e 16 GB RAM.
+
+EM GROUP DETAILS
+- Name, colocar:
+    nodes
+- Em "Initial Node Count" ele vem com 3.
+
+- Clicar em "Create" e aguardar.
+
+
+- Cluster Kubernetes já está disponível no painel do GCP.
+
+
+
+
+
+
+
+# 08 - Introdução a GitOps com Fleet.
+
+- Repositório que será usado:
+<https://github.com/4linux/liveGitOpsRancher>
+
+- Efetuado fork:
+<https://github.com/fernandomullerjr/liveGitOpsRancher>
+
+
+- O Fleet transforma os códigos em recursos.
+
+- No Painel do Rancher, clicar em "Continuous Delivery".
+<https://34.136.135.215/dashboard/c/c-wr58t/fleet>
+- Clicar em "Git Repos".
+- No Github, copiar o endereço HTTPS do repositório:
+<https://github.com/fernandomullerjr/liveGitOpsRancher.git>
+
+
+- Clicar em "Git Repos".
+Clicar em "Add repository"
+
+name:
+liverancher
+
+Repository url:
+https://github.com/fernandomullerjr/liveGitOpsRancher.git
+
+branch name:
+main
+
+Paths
+The root of the repo is used by default. To use one or more different directories, add them here. 
+[OBSERVAÇÃO]
+Colocar o nome da pasta que tem o projeto com os manifestos YAML.
+No caso vai ser:
+single-cluster
+
+Deploy to:
+selecionar o cluster "liverancher"
+
+# 10 - Realizar Deploy do WordPress Single Cluster com Fleet.
+
+- Clicar em "create"
+- Acompanhar o deploy:
+<https://34.136.135.215/dashboard/c/c-wr58t/fleet/fleet.cattle.io.gitrepo>
+
+
+
+- Para obter o endereço ip do Cluster e poder acessar o Wordpress:
+clicar no Cluster "liverancher"
+http://35.226.187.216:32299/wp-admin/install.php
+
+
+
+- Página acessível:
+<http://35.226.187.216:32299/>
